@@ -1,0 +1,59 @@
+h1 {
+    text-align: center;
+    opacity: 50%;
+    font-size: 4em;
+    margin-bottom: -100px;
+    margin-top: 0;
+}
+
+h2 {
+    grid-area: name;
+}
+
+.spotify {
+    grid-area: spotify;
+}
+
+.persons {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(250px, 300px);
+    overflow: auto;
+    gap: 3px;
+}
+
+img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 400px;
+
+    grid-area: image;
+}
+
+article {
+    display: grid;
+    grid-template-areas: 
+    "image"
+    "name"
+    "spotify";
+}
+
+
+
+@media (max-width: 600px) {
+    .persons {
+        grid-auto-columns: minmax(150px, 170px);
+        gap: 3px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .persons { 
+        grid-auto-columns: minmax(200px, 230px);
+        gap: 3px;
+    }
+}
+
+
+
