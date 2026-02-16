@@ -1,5 +1,70 @@
-<h1>Zet 'm op team {{ teamName }}!</h1>
+{% render 'partials/head.liquid', title: 'Squad page' %}
 
+<h1>SQUAD</h1>
+
+
+
+  <div class="persons">
+
+    {% for person in persons %}
+      <article>
+
+        {% if person.name %}
+        <h2>{{ person.name }}</h2>
+        {% else %}
+        <h2>Mr/ms NoName</h2>
+        {% endif %}
+
+        <div class="wrapper">
+        {% if person.mugshot %}
+          <img src="https://fdnd.directus.app/assets/{{  person.mugshot }}?width=500">
+        {% else %}
+          <img src="/smeagle.jpeg">
+        {% endif %}
+        </div>
+
+        <p class="nickname" >{{ person.nickname }}</p>
+
+        {% if person.birthdate %}
+        <p class="geboortedatum" >{{ person.birthdate }}</p>
+        {% else %}
+          <p>leeftijd Onbekend</p>
+        {% endif %}
+
+        <p class="residency">{{ person.residency | default: 'Woonplaats onbekend' }}</p>
+
+
+{% if person.fav_spotify_track %}
+  
+  {% assign spotify_embed = person.fav_spotify_track 
+    | replace: "https://open.spotify.com/", "https://open.spotify.com/embed/" %}
+  <iframe 
+    src="{{ spotify_embed }}" 
+    width="100%" 
+    height="152" 
+    frameborder="0" 
+    allowfullscreen 
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+{% else %}
+  <h2>Geen track</h2>
+{% endif %}
+
+ 
+
+
+      </article>
+    {% endfor %}
+  </div>
+
+
+{% render 'partials/foot.liquid', squads: squads %}
+
+
+
+
+{% comment %} 
+ 
 <h2>Huidige berichten</h2>
 
 {% for message in messages %}
@@ -19,4 +84,6 @@
     <textarea name="text" required></textarea>
   </label>
   <button type="submit">Verstuur</button>
-</form>
+</form> 
+
+{% endcomment %}
