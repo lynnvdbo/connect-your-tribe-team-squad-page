@@ -46,7 +46,7 @@ app.get('/', async function (request, response) {
 // }
 
   const personResponse = await fetch(
-    "https://fdnd.directus.app/items/person/" 
+    "https://fdnd.directus.app/items/person/?sort=name&fields=*,squads.squad_id.name,squads.squad_id.cohort&filter[squads][squad_id][tribe][name]=FDND Jaar 1&filter[squads][squad_id][cohort]=2526"  
     // + new URLSearchParams(),
   );
 
@@ -104,3 +104,4 @@ if (teamName == '') {
     console.log(`Application started on http://localhost:${app.get('port')}`)
   })
 }
+
