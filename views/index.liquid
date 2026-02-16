@@ -2,19 +2,20 @@
 
 <h1>SQUAD</h1>
 
-
-
   <div class="persons">
 
     {% for person in persons %}
       <article>
 
         {% if person.name %}
-        <h2>{{ person.name }}</h2>
+        {% comment %} zorgt ervoor dat je alleen voornaam ziet {% endcomment %}
+        {% assign nameArray = person.name | split: " " %}
+        <h2>{{ nameArray[0] }}</h2>
         {% else %}
         <h2>Mr/ms NoName</h2>
         {% endif %}
 
+        {% comment %} fotos van studenten {% endcomment %}
         <div class="wrapper">
         {% if person.mugshot %}
           <img src="https://fdnd.directus.app/assets/{{  person.mugshot }}?width=500">
