@@ -12,6 +12,9 @@ h2 {
 
 .spotify {
     grid-area: spotify;
+
+    iframe {
+        width: 100%;
 }
 
 .persons {
