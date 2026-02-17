@@ -124,3 +124,50 @@ app.get('/verjaardag', async function (request, response) {
   response.render('verjaardag.liquid', {persons: personResponseJSON.data})
 })
 
+
+// zorgt voor JONG OUD
+app.get('/jong-oud', async function (request, response) {
+  const params = {
+    // Sorteer op naam
+    'sort': '-birthdate',
+
+    // Geef aan welke data je per persoon wil terugkrijgen
+    'fields': '*,squads.*',
+
+    // Combineer meerdere filters
+    'filter[squads][squad_id][tribe][name]': 'FDND Jaar 1',
+    // Filter eventueel alleen op een bepaalde squad
+    // 'filter[squads][squad_id][name]': '1I',
+    // 'filter[squads][squad_id][name]': '1J',
+    'filter[squads][squad_id][cohort]': '2526'
+  }
+  const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(params))
+
+  // En haal daarvan de JSON op
+  const personResponseJSON = await personResponse.json()
+  response.render('verjaardag.liquid', {persons: personResponseJSON.data})
+})
+
+// zorgt voor OUD JONG
+app.get('/oud-jong', async function (request, response) {
+  const params = {
+    // Sorteer op naam
+    'sort': 'birthdate',
+
+    // Geef aan welke data je per persoon wil terugkrijgen
+    'fields': '*,squads.*',
+
+    // Combineer meerdere filters
+    'filter[squads][squad_id][tribe][name]': 'FDND Jaar 1',
+    // Filter eventueel alleen op een bepaalde squad
+    // 'filter[squads][squad_id][name]': '1I',
+    // 'filter[squads][squad_id][name]': '1J',
+    'filter[squads][squad_id][cohort]': '2526'
+  }
+  const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(params))
+
+  // En haal daarvan de JSON op
+  const personResponseJSON = await personResponse.json()
+  response.render('verjaardag.liquid', {persons: personResponseJSON.data})
+})
+
