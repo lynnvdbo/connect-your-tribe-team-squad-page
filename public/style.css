@@ -51,6 +51,33 @@ article {
     "name"
     "spotify";
     scroll-snap-align: center;
+
+/* FILTER OP: */
+.filter-by {
+
+    h3 {
+        margin-top: 1em;
+    }
+
+    buttons {
+        margin-top: 0em;
+
+        ul {
+            margin-top: 0em;
+        }
+    }
+
+
+
+    @media (min-width: 1100px) {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        gap: 2em;
+    }
+}
+
+
 /* LIKES - DISLIKES */
 .like-interactie {
     display: flex;
