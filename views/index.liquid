@@ -18,9 +18,9 @@
         {% comment %} fotos van studenten {% endcomment %}
         <div class="wrapper">
         {% if person.mugshot %}
-          <img src="https://fdnd.directus.app/assets/{{  person.mugshot }}?width=500">
+          <img src="https://fdnd.directus.app/assets/{{  person.mugshot }}?width=500" alt="profile picture">
         {% else %}
-          <img src="/smeagle.jpeg">
+          <img src="/smeagle.jpeg" alt="image replace smeagle">
         {% endif %}
         </div>
 
