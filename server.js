@@ -171,3 +171,21 @@ app.get('/oud-jong', async function (request, response) {
   response.render('verjaardag.liquid', {persons: personResponseJSON.data})
 })
 
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!! Dit linked naar mijn VIBE-EMOJI pagina !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+app.get('/vibe-emoji', async function (request, response) {
+  const params = {
+    'sort': 'name',
+    'fields': '*,squads.*',
+    // Combineer meerdere filters
+    'filter[squads][squad_id][tribe][name]': 'FDND Jaar 1',
+    // Filter eventueel alleen op een bepaalde squad
+    // 'filter[squads][squad_id][name]': '1I',
+    // 'filter[squads][squad_id][name]': '1J',
+    'filter[squads][squad_id][cohort]': '2526'
+  }
+  const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(params))
+  const personResponseJSON = await personResponse.json()
+  response.render('vibe-emoji.liquid', {persons: personResponseJSON.data})
+})
+

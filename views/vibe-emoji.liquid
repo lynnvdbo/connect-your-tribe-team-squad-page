@@ -1,0 +1,100 @@
+{% render 'partials/head.liquid', title: 'Squad page' %}
+
+<h1><a href="/">SQUAD</a></h1>
+
+  <div class="persons">
+
+    {% for person in persons %}
+      <article>
+
+        {% if person.name %}
+        {% comment %} zorgt ervoor dat je alleen voornaam ziet {% endcomment %}
+        {% assign nameArray = person.name | split: " " %}
+        <h2>{{ nameArray[0] }} {{  person.vibe_emoji }}</h2>
+        {% else %}
+        <h2>Mr/ms NoName</h2>
+        {% endif %}
+
+
+        {% comment %} fotos van studenten {% endcomment %}
+        <div class="wrapper">
+        {% if person.mugshot %}
+          <img src="https://fdnd.directus.app/assets/{{  person.mugshot }}?width=500" alt="profile picture">
+        {% else %}
+          <img src="/smeagle.jpeg" alt="image replace">
+        {% endif %}
+        </div>
+
+        {% comment %} spotify track {% endcomment %}
+         <div class="spotify">
+          {% if person.fav_spotify_track %}
+          {% assign spotify_embed = person.fav_spotify_track 
+              | replace: "https://open.spotify.com/", "https://open.spotify.com/embed/" %}
+
+              
+              <iframe 
+                src="{{ spotify_embed }}" 
+                height="152" 
+                width="100%"
+                allowfullscreen 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+              </iframe>
+              
+          {% else %}
+            <h2>Geen track</h2>
+          {% endif %}
+         </div>
+
+      </article>
+    {% endfor %}
+
+  </div>
+
+  <section class="sort-by">
+    <h3>Sorteren op:</h3>
+
+    <nav class="buttons">
+      <ul>
+        <li><a href="/verjaardag" class="verjaardag">Verjaardag</a></li>
+        <li><a href="/vibe-emoji" class="vibe-emoji">Vibe emoji</a></li>
+        <li><a href="/squad" class="squad">Squad</a></li>
+      </ul>
+    </nav>
+  </section>
+
+  <div class="like-interactie"> 
+    <p>Likes</p>
+    <p>👍</p>
+    <p>👎</p>
+    <p>Dislikes</p>
+
+  </div>
+
+{% render 'partials/foot.liquid', squads: squads %}
+
+
+
+{% comment %} 
+ 
+<h2>Huidige berichten</h2>
+
+{% for message in messages %}
+  <p>{{ message.from }}: {{ message.text }} @{{ message.created | date: '%d-%m-%Y %H:%M' }}</p>
+{% else %}
+  <p>Er zijn nog geen berichten voor dit team.</p>
+{% endfor %}
+
+<h2>Voeg een bericht toe</h2>
+<form method="post" action="/">
+  <label>
+    Naam:
+    <input type="text" name="from" required>
+  </label>
+  <label>
+    Bericht:
+    <textarea name="text" required></textarea>
+  </label>
+  <button type="submit">Verstuur</button>
+</form> 
+
+{% endcomment %}
