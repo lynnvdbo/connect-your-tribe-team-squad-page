@@ -3,6 +3,7 @@ body {
   letter-spacing: 2px;
 }
 
+
 h1 {
     text-align: center;
     opacity: 50%;
@@ -13,7 +14,9 @@ h1 {
 
 h2 {
     grid-area: name;
+    text-align: center;
 }
+
 
 .spotify {
     grid-area: spotify;
@@ -21,8 +24,9 @@ h2 {
     iframe {
         width: 100%;
         border: none;
+    }   
 }
-}
+
 
 .persons {
     display: grid;
@@ -44,6 +48,7 @@ img {
     grid-area: image;
 }
 
+
 article {
     display: grid;
     grid-template-areas: 
@@ -51,6 +56,71 @@ article {
     "name"
     "spotify";
     scroll-snap-align: center;
+}
+
+
+h3 {
+    margin-left: 1em;
+    margin-top: 1.5em;
+
+    @media (min-width: 810px) {
+        margin-left: 1.8em;
+    }
+
+    @media (min-width: 1100px) {
+        margin-left: 5em;
+    }
+}
+
+
+.buttons {
+    text-align: center;
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    li {
+        background-color: darkgray;
+        margin-bottom: 1em;
+        border: 2px solid darkgray;
+
+        &:hover {
+            background-color: transparent;
+            border: 2px solid black;
+        }
+
+        @media (min-width: 1100px) {
+            padding-left: 1.5em;
+            padding-right: 1.5em;
+        }
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0em 1em 0.2em 1em;
+
+        @media (min-width: 810px) {
+            gap: 2em;    
+            display: grid;            
+            grid-template-columns: 1fr 1fr 1fr;
+            margin: 1em 1em 0em 1em;        
+        }
+    }
+}
+
+
+/* SORTEREN OP: */
+.sort-by {
+    @media (min-width: 1100px) {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        gap: 2em;
+        margin-top: 2em;
+    }
+}
 
 /* FILTER OP: */
 .filter-by {
