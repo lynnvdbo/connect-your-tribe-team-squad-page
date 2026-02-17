@@ -207,6 +207,52 @@ app.get('/squad', async function (request, response) {
   response.render('squad.liquid', {persons: personResponseJSON.data})
 })
 
+// zorgt voor SQAUD 1I
+app.get('/squad1i', async function (request, response) {
+  const params = {
+    // Sorteer op naam
+    'sort': 'name',
+
+    // Geef aan welke data je per persoon wil terugkrijgen
+    'fields': '*,squads.*',
+
+    // Combineer meerdere filters
+    'filter[squads][squad_id][tribe][name]': 'FDND Jaar 1',
+    // Filter eventueel alleen op een bepaalde squad
+    'filter[squads][squad_id][name]': '1I',
+    // 'filter[squads][squad_id][name]': '1J',
+    // 'filter[squads][squad_id][cohort]': '2526'
+  }
+  const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(params))
+
+  // En haal daarvan de JSON op
+  const personResponseJSON = await personResponse.json()
+  response.render('squad.liquid', {persons: personResponseJSON.data})
+})
+
+// zorgt voor SQAUD 1J
+app.get('/squad1j', async function (request, response) {
+  const params = {
+    // Sorteer op naam
+    'sort': 'name',
+
+    // Geef aan welke data je per persoon wil terugkrijgen
+    'fields': '*,squads.*',
+
+    // Combineer meerdere filters
+    'filter[squads][squad_id][tribe][name]': 'FDND Jaar 1',
+    // Filter eventueel alleen op een bepaalde squad
+    // 'filter[squads][squad_id][name]': '1I',
+    'filter[squads][squad_id][name]': '1J',
+    // 'filter[squads][squad_id][cohort]': '2526'
+  }
+  const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(params))
+
+  // En haal daarvan de JSON op
+  const personResponseJSON = await personResponse.json()
+  response.render('squad.liquid', {persons: personResponseJSON.data})
+})
+
 
 // NAAM
 // zorgt voor AZ
