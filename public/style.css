@@ -25,7 +25,26 @@ h2 {
     grid-auto-columns: minmax(250px, 300px);
     overflow: auto;
     gap: 3px;
+
+        @media (max-width: 1050px) {
+        grid-auto-columns: minmax(200px, 230px);
+        gap: 3px;
 }
+  
+         @media (max-width: 600px) {
+        grid-auto-columns: minmax(150px, 170px);
+        gap: 3px;
+}
+}
+
+
+
+
+
+
+
+
+
 
 img {
     object-fit: cover;
@@ -45,20 +64,6 @@ article {
 }
 
 
-
-@media (max-width: 600px) {
-    .persons {
-        grid-auto-columns: minmax(150px, 170px);
-        gap: 3px;
-    }
-}
-
-@media (max-width: 1050px) {
-    .persons { 
-        grid-auto-columns: minmax(200px, 230px);
-        gap: 3px;
-    }
-}
 
 
 
