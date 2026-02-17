@@ -1,6 +1,8 @@
 body {
-  font-family: "gajraj one", serif;
-  letter-spacing: 2px;
+    font-family: "gajraj one", serif;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -10,7 +12,17 @@ h1 {
     font-size: 4em;
     margin-bottom: -100px;
     margin-top: 0;
+
+    a {
+        text-decoration: none;
+        color: black;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
+
 
 h2 {
     grid-area: name;
@@ -121,6 +133,7 @@ h3 {
         margin-top: 2em;
     }
 }
+
 
 /* FILTER OP: */
 .filter-by {

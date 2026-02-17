@@ -1,6 +1,6 @@
 {% render 'partials/head.liquid', title: 'Squad page' %}
 
-<h1>SQUAD</h1>
+<h1><a href="/">SQUAD</a></h1>
 
   <div class="persons">
 
@@ -14,6 +14,7 @@
         {% else %}
         <h2>Mr/ms NoName</h2>
         {% endif %}
+
 
         {% comment %} fotos van studenten {% endcomment %}
         <div class="wrapper">
@@ -49,14 +50,14 @@
 
   </div>
 
-  <section class="sort-by-">
+  <section class="sort-by">
     <h3>Sorteren op:</h3>
 
     <nav class="buttons">
       <ul>
-        <li><a href="" class="verjaardag">Verjaardag</a></li>
-        <li><a href="" class="favoriete-emoji">Favoriete-emoji</a></li>
-        <li><a href="" class="favoriete-soep">Favoriete-soep</a></li>
+        <li><a href="/verjaardag" class="verjaardag">Verjaardag</a></li>
+        <li><a href="/vibe-emoji" class="vibe-emoji">Vibe emoji</a></li>
+        <li><a href="/squad" class="squad">Squad</a></li>
       </ul>
     </nav>
   </section>
@@ -72,10 +73,12 @@
     </nav>
   </section>
 
+  <div class="like-interactie"> 
     <p>Likes</p>
     <p>👍</p>
-    <p>Dislikes</p>
     <p>👎</p>
+    <p>Dislikes</p>
+
   </div>
 
 {% render 'partials/foot.liquid', squads: squads %}
