@@ -51,4 +51,10 @@ article {
     "name"
     "spotify";
     scroll-snap-align: center;
+/* LIKES - DISLIKES */
+.like-interactie {
+    display: flex;
+    justify-content:center;
+    gap: 0.5em; 
+
 }
