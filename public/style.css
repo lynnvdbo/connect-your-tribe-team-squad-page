@@ -1,3 +1,8 @@
+body {
+  font-family: "gajraj one", serif;
+  letter-spacing: 2px;
+}
+
 h1 {
     text-align: center;
     opacity: 50%;
@@ -36,14 +41,6 @@ h2 {
         gap: 3px;
 }
 }
-
-
-
-
-
-
-
-
 
 
 img {
