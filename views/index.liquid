@@ -29,12 +29,16 @@
           {% if person.fav_spotify_track %}
           {% assign spotify_embed = person.fav_spotify_track 
               | replace: "https://open.spotify.com/", "https://open.spotify.com/embed/" %}
+
+              
               <iframe 
                 src="{{ spotify_embed }}" 
                 height="152" 
+                width="100%"
                 allowfullscreen 
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
               </iframe>
+              
           {% else %}
             <h2>Geen track</h2>
           {% endif %}
