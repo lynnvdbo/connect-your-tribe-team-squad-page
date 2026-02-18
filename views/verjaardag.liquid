@@ -12,7 +12,7 @@
             <h2>{{ person.birthdate | date: '%d-%m-%Y' }} </h2>
         {% else %}
             <h2>?</h2>
-        {% endif %}
+        {% endif %} 
 
         {% comment %} fotos van studenten {% endcomment %}
         <div class="wrapper">
@@ -53,7 +53,7 @@
 
     <nav class="buttons">
       <ul>
-        <li><a href="/verjaardag" class="verjaardag">Verjaardag</a></li>
+        <li><a href="/verjaardag" class="verjaardag is-active">Verjaardag</a></li>
         <li><a href="/vibe-emoji" class="vibe-emoji">Vibe emoji</a></li>
         <li><a href="/squad" class="squad">Squad</a></li>
       </ul>

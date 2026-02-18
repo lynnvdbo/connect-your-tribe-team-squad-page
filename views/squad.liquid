@@ -1,19 +1,30 @@
-{% render 'partials/head.liquid', title: 'Squad page' %}
+{% render 'partials/head.liquid', title: title %}
 
-<h1><a href="/">SQUAD</a></h1>
 
+{% comment %} {{ activeSort }} {% endcomment %}
+<h1><a href="/">{{ title }}</a></h1>
   <div class="persons">
 
     {% for person in persons %}
       <article>
 
-        {% if person.name %}
-        {% comment %} zorgt ervoor dat je alleen voornaam ziet {% endcomment %}
-        {% assign nameArray = person.name | split: " " %}
-        <h2>{{ nameArray[0] }}</h2>
+        {% if cleanSort == 'birthdate' %}
+          {% if person.birthdate %}
+            <h2>{{ person.birthdate | date: '%d-%m-%Y' }}</h2>
+          {% else %}
+            <h2>?</h2>
+          {% endif %}
+
         {% else %}
-        <h2>Mr/ms NoName</h2>
+
+          {% if person.name %}
+            {% assign nameArray = person.name | split: " " %}
+            <h2>{{ nameArray[0] }}</h2>
+          {% else %}
+            <h2>Mr/ms NoName</h2>
+          {% endif %}
         {% endif %}
+
 
         {% comment %} fotos van studenten {% endcomment %}
         <div class="wrapper">
@@ -24,6 +35,7 @@
         {% endif %}
         </div>
 
+        
         {% comment %} spotify track {% endcomment %}
          <div class="spotify">
           {% if person.fav_spotify_track %}
@@ -49,14 +61,17 @@
 
   </div>
 
+
   <section class="sort-by">
     <h3>Sorteren op:</h3>
 
     <nav class="buttons">
       <ul>
-        <li><a href="/verjaardag" class="verjaardag">Verjaardag</a></li>
+        <li><a href="?sort=birthdate" class="sort-button verjaardag {% if activeSort == 'birthdate' %}is-active{% endif %}">+Verjaardag</a></li>
+        <li><a href="?sort=-birthdate" class="sort-button sort-button-reverse verjaardag {% if activeSort == '-birthdate' %}is-active{% endif %}">-Verjaardag</a></li>
+
         <li><a href="/vibe-emoji" class="vibe-emoji">Vibe emoji</a></li>
-        <li><a href="/squad" class="squad">Squad</a></li>
+        {% comment %} <li><a href="/squad" class="squad">Squad</a></li> {% endcomment %}
       </ul>
     </nav>
   </section>
@@ -66,8 +81,8 @@
 
     <nav class="buttons">
       <ul>
-        <li><a href="/squad1i" class="verjaardag">SQUAD 1I</a></li>
-        <li><a href="/squad1j" class="vibe-emoji">SQUAD 1J</a></li>
+        <li><a href="/squad/1i" class="sort-button squad/1i {% if activeSort == 'squad' %}is-active{% endif %}">Squad 1I</a></li>
+        <li><a href="/squad/1j" class="sort-button sort-button-reverse squad/1j {% if activeSort == '-squad' %}is-active{% endif %}">Squad 1J</a></li>
       </ul>
     </nav>
   </section>
