@@ -22,6 +22,7 @@ app.get("/", async function (request, response) {
   // bijvoorbeeld je teamnaam, je projectnaam, je person ID, de datum van vandaag, etc..
   const messageParams = {
     "filter[for]": `Team ${teamName}`,
+    "sort": `-id`,
   }
   // Maak hiermee de URL aan, zoals we dat ook in de browser deden
   const apiURL =
