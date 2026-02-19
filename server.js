@@ -38,6 +38,8 @@ app.get("/", async function (request, response) {
   // Lees van de response van die fetch het JSON object in, waar we iets mee kunnen doen
   const messagesResponseJSON = await messagesResponse.json();
 
+  // console.log(messagesResponseJSON)
+
   // const parampersons = {
   //   'filter[]' :
   // }
@@ -70,7 +72,8 @@ app.get("/", async function (request, response) {
 
   // En render de view met de messages
     const cleanSort = sort.replace("-", "");
-    response.render("squad.liquid", {
+
+  response.render("squad.liquid", {
     persons: personResponseJSON.data,
     cleanSort: cleanSort,
     activeSort: sort,
@@ -79,6 +82,9 @@ app.get("/", async function (request, response) {
 });
 
 app.post("/", async function (request, response) {
+
+   console.log("hallo");
+
   // Stuur een POST request naar de messages tabel
   // Een POST request bevat ook extra parameters, naast een URL
   await fetch("https://fdnd.directus.app/items/messages", {
