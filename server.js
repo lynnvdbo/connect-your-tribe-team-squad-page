@@ -78,6 +78,7 @@ app.get("/", async function (request, response) {
     cleanSort: cleanSort,
     activeSort: sort,
     title: "Alle squads ",
+    messages: messagesResponseJSON.data,
   });
 });
 
