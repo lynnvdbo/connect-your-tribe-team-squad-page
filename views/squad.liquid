@@ -1,5 +1,6 @@
 {% render 'partials/head.liquid', title: title %}
 
+<main>
 
 {% comment %} {{ activeSort }} {% endcomment %}
 <h1><a href="/">{{ title }}</a></h1>
@@ -109,6 +110,9 @@
     {% endfor %}
   </div>
 </div>
+
+</main>
+
 {% render 'partials/foot.liquid', squads: squads %}
 
 
