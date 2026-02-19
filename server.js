@@ -68,7 +68,6 @@ app.get("/", async function (request, response) {
   // console.log(messagesResponseJSON)
 
   // En render de view met de messages
-    teamName: teamName,
     const cleanSort = sort.replace("-", "");
     response.render("squad.liquid", {
     persons: personResponseJSON.data,
@@ -224,6 +223,7 @@ app.get("/squad/:squadId", async function (request, response) {
   const personResponse = await fetch(
     "https://fdnd.directus.app/items/person/?" + new URLSearchParams(params),
   );
+  console.log(squadId)
   const personResponseJSON = await personResponse.json();
 
   // remove dash (-) from sorting method so it's always sent like 'birthdate' and never '-birthdate'
@@ -232,6 +232,7 @@ app.get("/squad/:squadId", async function (request, response) {
     persons: personResponseJSON.data,
     cleanSort: cleanSort,
     activeSort: sort,
+    activeSquad:squadId,
     title: "Squad " + squadId,
   });
 });
