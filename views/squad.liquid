@@ -17,13 +17,14 @@
 
         {% else %}
 
-          {% if person.name %}
+          {% if person.name person.vibe_emoji %}
             {% assign nameArray = person.name | split: " " %}
-            <h2>{{ nameArray[0] }}</h2>
+            <h2>{{ nameArray[0] }} {{  person.vibe_emoji }}</h2>
           {% else %}
             <h2>Mr/ms NoName</h2>
           {% endif %}
         {% endif %}
+
 
 
         {% comment %} fotos van studenten {% endcomment %}
@@ -35,7 +36,9 @@
         {% endif %}
         </div>
 
-        
+
+
+
         {% comment %} spotify track {% endcomment %}
          <div class="spotify">
           {% if person.fav_spotify_track %}
@@ -69,8 +72,6 @@
       <ul>
         <li><a href="?sort=birthdate" class="sort-button verjaardag {% if activeSort == 'birthdate' %}is-active{% endif %}">+Verjaardag</a></li>
         <li><a href="?sort=-birthdate" class="sort-button sort-button-reverse verjaardag {% if activeSort == '-birthdate' %}is-active{% endif %}">-Verjaardag</a></li>
-
-        <li><a href="/vibe-emoji" class="vibe-emoji">Vibe emoji</a></li>
         {% comment %} <li><a href="/squad" class="squad">Squad</a></li> {% endcomment %}
       </ul>
     </nav>
