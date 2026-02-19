@@ -3,12 +3,10 @@
 
 {% comment %} {{ activeSort }} {% endcomment %}
 <h1><a href="/">{{ title }}</a></h1>
-  <div class="persons">
-
-    {% for person in persons %}
-      <article>
-
-        {% if cleanSort == 'birthdate' %}
+<div class="persons">
+  {% for person in persons %}
+    <article>
+      {% if cleanSort == 'birthdate' %}
           {% if person.birthdate %}
             <h2>{{ person.birthdate | date: '%d-%m-%Y' }}</h2>
           {% else %}
@@ -18,17 +16,17 @@
         {% else %}
 
           {% if person.name person.vibe_emoji %}
-            {% assign nameArray = person.name | split: " " %}
+            {% assign nameArray = person.name | split: ' ' %}
             <h2>{{ nameArray[0] }} {{  person.vibe_emoji }}</h2>
-          {% else %}
+        {% else %}
             <h2>Mr/ms NoName</h2>
           {% endif %}
-        {% endif %}
+      {% endif %}
 
 
 
-        {% comment %} fotos van studenten {% endcomment %}
-        <div class="wrapper">
+      {% comment %} fotos van studenten {% endcomment %}
+      <div class="wrapper">
         {% if person.mugshot %}
           <img src="https://fdnd.directus.app/assets/{{  person.mugshot }}?width=500" alt="profile picture">
         {% else %}
@@ -39,90 +37,82 @@
 
 
 
-        {% comment %} spotify track {% endcomment %}
-         <div class="spotify">
-          {% if person.fav_spotify_track %}
-          {% assign spotify_embed = person.fav_spotify_track 
-              | replace: "https://open.spotify.com/", "https://open.spotify.com/embed/" %}
+      {% comment %} spotify track {% endcomment %}
+      <div class="spotify">
+        {% if person.fav_spotify_track %}
+          {% assign spotify_embed = person.fav_spotify_track
+            | replace: 'https://open.spotify.com/', 'https://open.spotify.com/embed/'
+          %}
+        {% else %}
+          {% assign spotify_embed = 'https://open.spotify.com/embed/track/7ixxyJJJKZdo8bsdWwkaB6' %}
+        {% endif %}
 
-              
-              <iframe 
-                src="{{ spotify_embed }}" 
-                height="152" 
-                width="100%"
-                allowfullscreen 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-              </iframe>
-              
-          {% else %}
-            <h2>Geen track</h2>
-          {% endif %}
-         </div>
+        <iframe
+          src="{{ spotify_embed }}"
+          height="152"
+          width="100%"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        >
+        </iframe>
+      </div>
+    </article>
+  {% endfor %}
+</div>
 
-      </article>
-    {% endfor %}
+<section class="sort-by">
+  <h3>Sorteren op:</h3>
 
-  </div>
+  <nav class="buttons">
+    <ul>
+      <li><a href="?sort=birthdate" class="sort-button verjaardag {% if activeSort == 'birthdate' %}is-active{% endif %}">+Verjaardag</a></li>
+      <li><a href="?sort=-birthdate" class="sort-button sort-button-reverse verjaardag {% if activeSort == '-birthdate' %}is-active{% endif %}">-Verjaardag</a></li>
+      {% comment %} <li><a href="/squad" class="squad">Squad</a></li> {% endcomment %}
+    </ul>
+  </nav>
+</section>
 
+<section class="filter-by">
+  <h3>Filter op:</h3>
 
-  <section class="sort-by">
-    <h3>Sorteren op:</h3>
-
-    <nav class="buttons">
-      <ul>
-        <li><a href="?sort=birthdate" class="sort-button verjaardag {% if activeSort == 'birthdate' %}is-active{% endif %}">+Verjaardag</a></li>
-        <li><a href="?sort=-birthdate" class="sort-button sort-button-reverse verjaardag {% if activeSort == '-birthdate' %}is-active{% endif %}">-Verjaardag</a></li>
-        {% comment %} <li><a href="/squad" class="squad">Squad</a></li> {% endcomment %}
-      </ul>
-    </nav>
-  </section>
-
-   <section class="filter-by">
-    <h3>Filter op:</h3>
-
-    <nav class="buttons">
-      <ul>
-        <li><a href="/squad/1i" class="sort-button squad/1i {% if activeSquad == '1I' %}is-active{% endif %}">Squad 1I</a></li>
-        <li><a href="/squad/1j" class="sort-button sort-button-reverse squad/1j {% if activeSquad == '1J' %}is-active{% endif %}">Squad 1J</a></li>
+  <nav class="buttons">
+    <ul>
+      <li><a href="/squad/1i" class="sort-button squad/1i {% if activeSquad == '1I' %}is-active{% endif %}">Squad 1I</a></li>
+      <li><a href="/squad/1j" class="sort-button sort-button-reverse squad/1j {% if activeSquad == '1J' %}is-active{% endif %}">Squad 1J</a></li>
         <li><a href="/" class="sort-button sort-button-reverse squad/1j {% if activeSquad != '1J' and activeSquad != '1I' %}is-active{% endif %}">Alle squads</a></li>
 
-      </ul>
-    </nav>
-  </section>
+    </ul>
+  </nav>
+</section>
 
-  <div class="like-interactie"> 
-    <p>Likes</p>
-    <p>👍</p>
-    <p>👎</p>
-    <p>Dislikes</p>
-
-  </div>
+<div class="like-interactie">
+  <p>Likes</p>
+  <p>👍</p>
+  <p>👎</p>
+  <p>Dislikes</p>
+</div>
 
 {% render 'partials/foot.liquid', squads: squads %}
 
+{% comment %}
+  <h2>Huidige berichten</h2>
 
+  {% for message in messages %}
+    <p>{{ message.from }}: {{ message.text }} @{{ message.created | date: '%d-%m-%Y %H:%M' }}</p>
+  {% else %}
+    <p>Er zijn nog geen berichten voor dit team.</p>
+  {% endfor %}
 
-{% comment %} 
- 
-<h2>Huidige berichten</h2>
-
-{% for message in messages %}
-  <p>{{ message.from }}: {{ message.text }} @{{ message.created | date: '%d-%m-%Y %H:%M' }}</p>
-{% else %}
-  <p>Er zijn nog geen berichten voor dit team.</p>
-{% endfor %}
-
-<h2>Voeg een bericht toe</h2>
-<form method="post" action="/">
-  <label>
-    Naam:
-    <input type="text" name="from" required>
-  </label>
-  <label>
-    Bericht:
-    <textarea name="text" required></textarea>
-  </label>
-  <button type="submit">Verstuur</button>
-</form> 
-
+  <h2>Voeg een bericht toe</h2>
+  <form method="post" action="/">
+    <label>
+      Naam:
+      <input type="text" name="from" required>
+    </label>
+    <label>
+      Bericht:
+      <textarea name="text" required></textarea>
+    </label>
+    <button type="submit">Verstuur</button>
+  </form>
 {% endcomment %}
