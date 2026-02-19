@@ -10,7 +10,7 @@
         {% if person.name %}
         {% comment %} zorgt ervoor dat je alleen voornaam ziet {% endcomment %}
         {% assign nameArray = person.name | split: " " %}
-        <h2>{{ nameArray[0] }}</h2>
+        <h2>{{ nameArray[0] }} {{  person.vibe_emoji }}</h2>
         {% else %}
         <h2>Mr/ms NoName</h2>
         {% endif %}
