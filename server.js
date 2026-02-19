@@ -68,10 +68,13 @@ app.get("/", async function (request, response) {
   // console.log(messagesResponseJSON)
 
   // En render de view met de messages
-  response.render("squad.liquid", {
     teamName: teamName,
-    messages: messagesResponseJSON.data,
+    const cleanSort = sort.replace("-", "");
+    response.render("squad.liquid", {
     persons: personResponseJSON.data,
+    cleanSort: cleanSort,
+    activeSort: sort,
+    title: "Alle squads ",
   });
 });
 
