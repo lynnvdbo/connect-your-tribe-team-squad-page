@@ -56,12 +56,17 @@ img {
 }
 
 article {
-  display: grid;
-  grid-template-areas:
-    "image"
-    "name"
-    "spotify";
-  scroll-snap-align: center;
+    display: grid;
+    grid-template-areas:
+        "image"
+        "name"
+        "spotify";
+    scroll-snap-align: center;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
 h3 {
