@@ -334,4 +334,19 @@ app.get("/squad/:squadId", async function (request, response) {
 //   response.render("index.liquid", { persons: personResponseJSON.data });
 // });
 
+app.get('/', async function (request, response) {
+  const search = request.query.search;
+
+  const params = { 
+    fields: "*,squads.*",
+    sort: "name"
+  }
+  if (search) {
+    params.search = searchquery
+  }
+
+  const personResponse = await fetch(
+    "https://fdnd.directus.app/items/person/?" + new URLSearchParams(params)
+  )
+})
 
