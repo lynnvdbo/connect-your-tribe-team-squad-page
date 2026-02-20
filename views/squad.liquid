@@ -81,7 +81,30 @@
         <li><a href="/" class="sort-button sort-button-reverse squad/1j {% if activeSquad != '1J' and activeSquad != '1I' %}is-active{% endif %}">Alle squads</a></li>
     </ul>
   </nav>
-</section>
+
+  
+  <div class="search-by">
+  <h3>Zoek op:</h3>
+
+  <form method="get" action="">
+    <input
+      type="search"
+      name="search"
+      placeholder="Zoek op naam..."
+      value="{{ searchTerm }}"
+    >
+
+    {% if activeSort %}
+      {% comment %} sort behouden tijdens zoeken {% endcomment %}
+      <input type="hidden" name="sort" value="{{ activeSort }}">
+    {% endif %}
+
+    <button type="submit">Zoeken</button>
+
+    </a>
+  </form>
+</div>
+
 
 
 {% comment %} USER GENERATION CONTENT  {% endcomment %}

@@ -51,6 +51,9 @@ app.get("/", async function (request, response) {
     sort = "name";
   }
 
+  // Zoeken op naam 
+  const searchTerm = (request.query.search || "").trim();
+
   const params = {
     sort: sort,
     fields: "*,squads.*",
@@ -61,6 +64,12 @@ app.get("/", async function (request, response) {
     // 'filter[squads][squad_id][name]': '1I',
     'filter[squads][squad_id][cohort]': '2526'
   };
+
+  // Als er iets is ingevuld filter op naam
+  if (searchTerm.length > 0) {
+  params["filter[name][_icontains]"] = searchTerm;
+  }
+
   const personResponse = await fetch(
     "https://fdnd.directus.app/items/person/?" + new URLSearchParams(params),
   );
@@ -79,6 +88,7 @@ app.get("/", async function (request, response) {
     activeSort: sort,
     title: "Alle squads ",
     messages: messagesResponseJSON.data,
+    searchTerm: searchTerm,
   });
 });
 
@@ -218,6 +228,9 @@ app.get("/squad/:squadId", async function (request, response) {
     sort = "name";
   }
 
+  // zoeken op naam 
+  const searchTerm = (request.query.search || "").trim();
+
   const params = {
     sort: sort,
     fields: "*,squads.*",
@@ -228,6 +241,11 @@ app.get("/squad/:squadId", async function (request, response) {
     // 'filter[squads][squad_id][name]': '1J',
     // 'filter[squads][squad_id][cohort]': '2526'
   };
+
+  //  filter op naam
+ if (searchTerm.length > 0) {
+  params["filter[name][_icontains]"] = searchTerm;
+ }
   const personResponse = await fetch(
     "https://fdnd.directus.app/items/person/?" + new URLSearchParams(params),
   );
@@ -242,6 +260,7 @@ app.get("/squad/:squadId", async function (request, response) {
     activeSort: sort,
     activeSquad:squadId,
     title: "Squad " + squadId,
+    searchTerm: searchTerm,
   });
 });
 
