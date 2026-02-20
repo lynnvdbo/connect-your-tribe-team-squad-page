@@ -5,6 +5,7 @@ body {
   padding: 0;
 }
 
+
 h1 {
   text-align: center;
   opacity: 50%;
@@ -33,10 +34,12 @@ h1 {
   }
 }
 
+
 h2 {
   grid-area: name;
   text-align: center;
 }
+
 
 .spotify {
   grid-area: spotify;
@@ -46,6 +49,7 @@ h2 {
     border: none;
   }
 }
+
 
 .persons {
   display: grid;
@@ -58,6 +62,7 @@ h2 {
   scrollbar-color: black transparent;
 }
 
+
 img {
   object-fit: cover;
   object-position: center;
@@ -65,6 +70,7 @@ img {
   height: 400px;
   grid-area: image;
 }
+
 
 article {
     display: grid;
@@ -80,6 +86,7 @@ article {
     }
 }
 
+
 h3 {
   margin-left: 2em;
   margin-top: 1em;
@@ -92,6 +99,7 @@ h3 {
     margin-left: 5em;
   }
 }
+
 
 .sort-button {
   text-decoration: none;
@@ -116,19 +124,20 @@ h3 {
   }
 }
 
+
 .sort-button-reverse {
     background: darkgray;
     color: #000000;
 
     &:hover {
-    background-color: transparent;
-    border: 2px solid black;
-    color: #000000;
-  }
+        background-color: transparent;
+        border: 2px solid black;
+        color: #000000;
+    }
 
     &.is-active {
-    background: rgb(0, 0, 0);
-    color: #ffff;
+        background: rgb(0, 0, 0);
+        color: #ffff;
   }
 }
 
@@ -160,6 +169,7 @@ h3 {
     }
 }
 
+
 /* SORTEREN OP: */
 .sort-by {
     display: grid;
@@ -173,6 +183,7 @@ h3 {
         margin-top: 4em;
     }
 }
+
 
 /* FILTER OP: */
 .filter-by {
@@ -196,6 +207,8 @@ h3 {
   }
 }
 
+
+/* ZOEKEBALK */
 .search-by {
   margin: 1em;
 
@@ -230,6 +243,7 @@ h3 {
   }
 }
 
+
 /* USER GENERATION CONTENT */
 .berichten {
     max-width: 600px;
@@ -241,7 +255,7 @@ h3 {
 
     @media (min-width: 810px) {
         margin: 4em 4em 0em 4em;
-  }
+    } 
 
     h2 {
         margin-bottom: 1.5em;
@@ -303,6 +317,7 @@ h3 {
     }   
 }
 
+
 .ontvangen-berichten {
     max-width: 600px;
     margin: 4em;
@@ -312,21 +327,21 @@ h3 {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
+
 .laat-een-bericht-achter {
     display: flex;
     flex-direction: column;
 
     @media (min-width: 810px) {
-    margin-left: 1.8em;
-  }
+        margin-left: 1.8em;
+    }
 
-  @media (min-width: 1100px) {
-      display: flex;
-      flex-direction: row;
-      gap: 2em;
-      align-items: flex-start;
-      max-width: 1200px;
-      margin: 1em auto;
-  }
-  
+    @media (min-width: 1100px) {
+        display: flex;
+        flex-direction: row;
+        gap: 2em;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: 1em auto;
+    }
 }
