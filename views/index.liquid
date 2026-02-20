@@ -1,5 +1,7 @@
 {% render 'partials/head.liquid', title: 'Squad page' %}
 
+<main>
+
 <h1><a href="/">SQUAD</a></h1>
 
 <div class="persons">
@@ -35,7 +37,8 @@
         <iframe
           src="{{ spotify_embed }}"
           height="152"
-          width="100%"
+          width="100"
+          title="Spotify track van {{ person.name }}"
           allowfullscreen
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         >
@@ -82,6 +85,8 @@
   <p>👎</p>
   <p>Dislikes</p>
 </div>
+
+</main>
 
 {% render 'partials/foot.liquid', squads: squads %}
 

@@ -22,6 +22,7 @@ app.get("/", async function (request, response) {
   // bijvoorbeeld je teamnaam, je projectnaam, je person ID, de datum van vandaag, etc..
   const messageParams = {
     "filter[for]": `Team ${teamName}`,
+    "sort": `-id`,
   }
   // Maak hiermee de URL aan, zoals we dat ook in de browser deden
   const apiURL =
@@ -37,6 +38,8 @@ app.get("/", async function (request, response) {
   // Lees van de response van die fetch het JSON object in, waar we iets mee kunnen doen
   const messagesResponseJSON = await messagesResponse.json();
 
+  // console.log(messagesResponseJSON)
+
   // const parampersons = {
   //   'filter[]' :
   // }
@@ -48,6 +51,9 @@ app.get("/", async function (request, response) {
     sort = "name";
   }
 
+  // Zoeken op naam 
+  const searchTerm = (request.query.search || "").trim();
+
   const params = {
     sort: sort,
     fields: "*,squads.*",
@@ -58,6 +64,12 @@ app.get("/", async function (request, response) {
     // 'filter[squads][squad_id][name]': '1I',
     'filter[squads][squad_id][cohort]': '2526'
   };
+
+  // Als er iets is ingevuld filter op naam
+  if (searchTerm.length > 0) {
+  params["filter[name][_icontains]"] = searchTerm;
+  }
+
   const personResponse = await fetch(
     "https://fdnd.directus.app/items/person/?" + new URLSearchParams(params),
   );
@@ -69,15 +81,21 @@ app.get("/", async function (request, response) {
 
   // En render de view met de messages
     const cleanSort = sort.replace("-", "");
-    response.render("squad.liquid", {
+
+  response.render("squad.liquid", {
     persons: personResponseJSON.data,
     cleanSort: cleanSort,
     activeSort: sort,
     title: "Alle squads ",
+    messages: messagesResponseJSON.data,
+    searchTerm: searchTerm,
   });
 });
 
 app.post("/", async function (request, response) {
+
+   console.log("hallo");
+
   // Stuur een POST request naar de messages tabel
   // Een POST request bevat ook extra parameters, naast een URL
   await fetch("https://fdnd.directus.app/items/messages", {
@@ -210,6 +228,9 @@ app.get("/squad/:squadId", async function (request, response) {
     sort = "name";
   }
 
+  // zoeken op naam 
+  const searchTerm = (request.query.search || "").trim();
+
   const params = {
     sort: sort,
     fields: "*,squads.*",
@@ -220,6 +241,11 @@ app.get("/squad/:squadId", async function (request, response) {
     // 'filter[squads][squad_id][name]': '1J',
     // 'filter[squads][squad_id][cohort]': '2526'
   };
+
+  //  filter op naam
+ if (searchTerm.length > 0) {
+  params["filter[name][_icontains]"] = searchTerm;
+ }
   const personResponse = await fetch(
     "https://fdnd.directus.app/items/person/?" + new URLSearchParams(params),
   );
@@ -234,6 +260,7 @@ app.get("/squad/:squadId", async function (request, response) {
     activeSort: sort,
     activeSquad:squadId,
     title: "Squad " + squadId,
+    searchTerm: searchTerm,
   });
 });
 
@@ -334,19 +361,86 @@ app.get("/squad/:squadId", async function (request, response) {
 //   response.render("index.liquid", { persons: personResponseJSON.data });
 // });
 
-app.get('/', async function (request, response) {
-  const search = request.query.search;
 
-  const params = { 
-    fields: "*,squads.*",
-    sort: "name"
-  }
-  if (search) {
-    params.search = searchquery
-  }
 
-  const personResponse = await fetch(
-    "https://fdnd.directus.app/items/person/?" + new URLSearchParams(params)
-  )
-})
+// DEZE ROUTE BESTAAT AL
 
+// app.get('/', async function (request, response) {
+//   const search = request.query.search;
+
+//   const params = { 
+//     fields: "*,squads.*",
+//     sort: "name"
+//   }
+//   if (search) {
+//     params.search = searchquery
+//   }
+
+//   const personResponse = await fetch(
+//     "https://fdnd.directus.app/items/person/?" + new URLSearchParams(params)
+//   )
+// })
+
+
+// 2. Luister naar GET requests op /berichten
+// app.get('/squad/', async function (request, response) {
+
+//   const params = {
+//     "filter[cohort]": "2526",
+//     "filter[tribe][name]": "FDND Jaar 1",
+//   };
+
+//   const squadResponse = await fetch("https://fdnd.directuss.app/items/squad?" + new URLSearchParams(params)) 
+
+//   const squadResponseJSON = await squadResponse.json();
+
+//   const apiURL = `https://fdnd.directus.app/items/messages?filter[for][_eq]=Team ${teamName} / ${request.params.id}`;
+
+//   console.log(apiURL)
+
+//   const messageResponse = await fetch(apiURL);
+
+//   const messagesResponseJSON = await messagesResponse.json();
+
+//     const personDetailResponse = await fetch(
+//     "https://fdnd.directus.app/items/person/" + request.params,
+//   );
+//   // En haal daarvan de JSON op
+//   const personDetailResponseJSON = await personDetailResponse.json();
+ 
+//   // Render student.liquid uit de views map en geef de opgehaalde data mee als variable, genaamd person
+//   // Geef ook de eerder opgehaalde squad data mee aan de view
+//   response.render("squad.liquid", {
+//     person: personDetailResponseJSON.data,
+//     squads: squadResponseJSON.data,
+//     messages: messagesResponseJSON.data,
+//   });
+// })
+
+// 3. Luister naar POST requests, ook op /berichten
+// app.post("/student/:id", async function (request, response) {
+//   // Stuur een POST request naar de messages tabel
+//   // Een POST request bevat ook extra parameters, naast een URL
+//   await fetch("https://fdnd.directus.app/items/messages", {
+//     // Overschrijf de standaard GET method, want ook hier gaan we iets veranderen op de server
+//     method: "POST",
+ 
+//     // Geef de body mee als JSON string
+//     body: JSON.stringify({
+//       // Dit is zodat we ons bericht straks weer terug kunnen vinden met ons filter
+//       for: `Team ${teamName} / ${request.params}`,
+//       // En dit zijn onze formuliervelden
+//       from: request.body.from,
+//       text: request.body.text,
+//     }),
+ 
+//     // En vergeet deze HTTP headers niet: hiermee vertellen we de server dat we JSON doorsturen
+//     // (In realistischere projecten zou je hier ook authentication headers of een sleutel meegeven)
+//     headers: {
+//       "Content-Type": "application/json;charset=UTF-8",
+//     },
+//   });
+ 
+//   // Stuur de browser daarna weer naar de homepage
+//   response.redirect(303, `/student/${request.params}`);
+// });

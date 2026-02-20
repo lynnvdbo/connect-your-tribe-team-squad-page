@@ -1,5 +1,6 @@
 {% render 'partials/head.liquid', title: title %}
 
+<main>
 
 {% comment %} {{ activeSort }} {% endcomment %}
 <h1><a href="/">{{ title }}</a></h1>
@@ -13,16 +14,15 @@
             <h2>?</h2>
           {% endif %}
 
-        {% else %}
+          {% else %}
 
           {% if person.name person.vibe_emoji %}
             {% assign nameArray = person.name | split: ' ' %}
             <h2>{{ nameArray[0] }} {{  person.vibe_emoji }}</h2>
-        {% else %}
+          {% else %}
             <h2>Mr/ms NoName</h2>
           {% endif %}
       {% endif %}
-
 
 
       {% comment %} fotos van studenten {% endcomment %}
@@ -32,25 +32,24 @@
         {% else %}
           <img src="/smeagol2.jpg"  alt="image replace">
         {% endif %}
-        </div>
-
-
+      </div>
 
 
       {% comment %} spotify track {% endcomment %}
       <div class="spotify">
         {% if person.fav_spotify_track %}
-          {% assign spotify_embed = person.fav_spotify_track
+            {% assign spotify_embed = person.fav_spotify_track
             | replace: 'https://open.spotify.com/', 'https://open.spotify.com/embed/'
           %}
         {% else %}
-          {% assign spotify_embed = 'https://open.spotify.com/embed/track/7ixxyJJJKZdo8bsdWwkaB6' %}
+            {% assign spotify_embed = 'https://open.spotify.com/embed/track/7ixxyJJJKZdo8bsdWwkaB6' %}
         {% endif %}
 
         <iframe
           src="{{ spotify_embed }}"
           height="152"
-          width="100%"
+          width="100"
+          title="Spotify track van {{ person.name }}"
           allowfullscreen
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         >
@@ -80,39 +79,64 @@
       <li><a href="/squad/1i" class="sort-button squad/1i {% if activeSquad == '1I' %}is-active{% endif %}">Squad 1I</a></li>
       <li><a href="/squad/1j" class="sort-button sort-button-reverse squad/1j {% if activeSquad == '1J' %}is-active{% endif %}">Squad 1J</a></li>
         <li><a href="/" class="sort-button sort-button-reverse squad/1j {% if activeSquad != '1J' and activeSquad != '1I' %}is-active{% endif %}">Alle squads</a></li>
-
     </ul>
   </nav>
-</section>
 
-<div class="like-interactie">
-  <p>Likes</p>
-  <p>👍</p>
-  <p>👎</p>
-  <p>Dislikes</p>
+  
+  <div class="search-by">
+  <h3>Zoek op:</h3>
+
+  <form method="get" action="">
+    <input
+      type="search"
+      name="search"
+      placeholder="Zoek op naam..."
+      value="{{ searchTerm }}"
+    >
+
+    {% if activeSort %}
+      {% comment %} sort behouden tijdens zoeken {% endcomment %}
+      <input type="hidden" name="sort" value="{{ activeSort }}">
+    {% endif %}
+
+    <button type="submit">Zoeken</button>
+
+    </a>
+  </form>
 </div>
+
+
+
+{% comment %} USER GENERATION CONTENT  {% endcomment %}
+ <div class="laat-een-bericht-achter">
+  <section class="berichten">
+    <h2>Laat een bericht achter:</h2>
+
+      <form method="post" action="/">    
+        <label>
+          Naam:
+          <input type="text" name="from" required>
+        </label>
+        <label>
+          Bericht:
+          <textarea name="text" required></textarea>
+        </label>
+      <button type="submit">Verstuur</button>
+    </form>
+  </section>
+
+  <div class="ontvangen-berichten">
+    {% for message in messages %}
+      <p>{{ message.from }}: {{ message.text }} @{{ message.created | date: '%d-%m-%Y %H:%M' }}</p>
+    {% else %}
+      <p>Er zijn nog geen berichten voor dit team.</p>
+    {% endfor %}
+  </div>
+</div>
+
+</main>
 
 {% render 'partials/foot.liquid', squads: squads %}
 
-{% comment %}
-  <h2>Huidige berichten</h2>
 
-  {% for message in messages %}
-    <p>{{ message.from }}: {{ message.text }} @{{ message.created | date: '%d-%m-%Y %H:%M' }}</p>
-  {% else %}
-    <p>Er zijn nog geen berichten voor dit team.</p>
-  {% endfor %}
 
-  <h2>Voeg een bericht toe</h2>
-  <form method="post" action="/">
-    <label>
-      Naam:
-      <input type="text" name="from" required>
-    </label>
-    <label>
-      Bericht:
-      <textarea name="text" required></textarea>
-    </label>
-    <button type="submit">Verstuur</button>
-  </form>
-{% endcomment %}
